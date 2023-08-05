@@ -23,9 +23,9 @@ export class UpdatescoutDto {
   email?: string;
 
   @IsOptional()
-  @IsInt()
+  @IsString()
   @Length(10, 10)
-  phoneNo?: number;
+  phoneNo?: string;
 
   @IsOptional()
   @IsInt()
