@@ -24,8 +24,8 @@ export class ScoutDto {
   @IsEmail()
   email: string;
 
-  @IsString()
-  phoneNo: string;
+  @IsInt()
+  phoneNo: number;
 
   @IsInt()
   @Min(15)

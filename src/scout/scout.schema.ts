@@ -19,7 +19,7 @@ export class Scout {
     location: string;
 
     @Prop({ required: true })
-    phoneNo: string;
+    phoneNo: number;
 
     @Prop({required: true})
     dateOfBirth: Date;

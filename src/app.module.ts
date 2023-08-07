@@ -1,25 +1,23 @@
-import { Module,NestModule,MiddlewareConsumer,RequestMethod } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ScoutModule } from './scout/scout.module';
 import { MongooseModule } from '@nestjs/mongoose';
-import databaseConfig from './scout/database.config';
-import { ScoutController } from './scout/scout.controller';
-import { idValidationMiddleWare } from './scout/middleWare';
-import { ScoutGuard } from './scout/scout.gaurd';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { DBConfig } from './scout/config/db';
+
 @Module({
-  imports: [ScoutModule, MongooseModule.forRoot(databaseConfig.uri)],
+  imports: [
+    ScoutModule,
+    ConfigModule.forRoot({ isGlobal: true }),
+    MongooseModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: async (configService: ConfigService) =>
+        DBConfig(configService),
+      inject: [ConfigService],
+    }),
+  ],
   controllers: [AppController],
-  providers: [AppService, ScoutGuard],
+  providers: [AppService],
 })
-export class AppModule implements NestModule{
-  configure(consumer: MiddlewareConsumer) {
-    consumer.apply(idValidationMiddleWare)
-    .exclude(
-      { path: 'scout/create', method: RequestMethod.POST },
-      { path: 'scout/find', method: RequestMethod.GET },
-   
-    )
-    .forRoutes(ScoutController);
-  }
-}
+export class AppModule {}

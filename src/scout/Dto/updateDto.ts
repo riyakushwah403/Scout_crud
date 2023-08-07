@@ -11,7 +11,7 @@ import {
   Min,
 } from 'class-validator';
 
-export class UpdatescoutDto {
+export class UpdateScoutDto {
   @IsOptional()
   @IsString()
   @IsAlpha()
@@ -23,9 +23,9 @@ export class UpdatescoutDto {
   email?: string;
 
   @IsOptional()
-  @IsString()
+  @IsInt()
   @Length(10, 10)
-  phoneNo?: string;
+  phoneNo?: number;
 
   @IsOptional()
   @IsInt()

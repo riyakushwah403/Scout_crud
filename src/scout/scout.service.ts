@@ -2,10 +2,9 @@ import { Injectable, NotFoundException, Post } from '@nestjs/common';
 import { Scout, ScoutDocument } from './scout.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { ScoutDto } from './Dto/scout.dto';
-import { UpdatescoutDto } from './Dto/updateDto';
+import { UpdateScoutDto } from './Dto/updateDto';
 import { InjectConnection } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Connection } from 'mongoose';
 
 @Injectable()
 export class ScoutService {
@@ -27,7 +26,7 @@ export class ScoutService {
     }
     return scout;
   }
-  async update(id: string, updatescoutDto: UpdatescoutDto): Promise<Scout> {
+  async update(id: string, updatescoutDto: UpdateScoutDto): Promise<Scout> {
     const updatedScout = await this.scoutModel.findByIdAndUpdate(id, updatescoutDto, {
       new: true,
     }).exec();
@@ -41,7 +40,7 @@ export class ScoutService {
   async delete(id: string): Promise<string> {
     const deletedScout = await this.scoutModel.findByIdAndRemove(id).exec();
     if (!deletedScout) {
-      throw new NotFoundException('Scout with That ${id} Id is not  found')
+      throw new NotFoundException(`'Scout with That ${id} Id is not  found'`)
     } else {
       return "user delete successfully"
     }

@@ -1,5 +1,4 @@
-
-import { scoutRole } from './Dto/enum';
+import { scoutRole } from '../Dto/enum'; // please create sepreate folder for interface  and move there
 
 export interface Scout {
   name: string;
@@ -11,6 +10,5 @@ export interface Scout {
   dateOfJoin: Date;
   qualification: string[];
   role: scoutRole;
-  // stipened: number;
   trained: boolean;
 }

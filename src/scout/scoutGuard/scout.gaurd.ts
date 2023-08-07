@@ -3,7 +3,7 @@ import {
   CanActivate,
   ExecutionContext,
   BadRequestException,
-} from '@nestjs/common';
+} from '@nestjs/common'; // please create sepreate folder for guard  and move there
 
 @Injectable()
 export class ScoutGuard implements CanActivate {

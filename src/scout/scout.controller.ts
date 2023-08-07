@@ -1,11 +1,12 @@
-import { Controller, Post, Param, UseGuards,UsePipes } from '@nestjs/common';
+import { Controller, Post, Param, UseGuards,UsePipes, UseInterceptors } from '@nestjs/common';
 import { Body, Delete, Get, Patch } from '@nestjs/common/decorators/http';
 import { ScoutDto } from './Dto/scout.dto';
 import { ScoutService } from './scout.service';
-import { UpdatescoutDto } from './Dto/updateDto';
-import { ScoutGuard } from './scout.gaurd';
+import { ScoutGuard } from './scoutGuard/scout.gaurd';
 import { scoutRole } from './Dto/enum';
-import { PhoneNoPipe } from './scout.pipe';
+import { PhoneNoPipe } from './scoutPipe/scout.pipe';
+import { UpdateScoutDto } from './Dto/updateDto';
+import { LoginInterceptor } from './scoutInterceptor/scoutIntercepter';
 
 @Controller('scout')
 export class ScoutController {
@@ -23,7 +24,7 @@ export class ScoutController {
     return this.scoutService.findAll();
   }
 
-  @Get('find/:id')
+  @Get('findById/:id')
   getOneScout(@Param('id') id: string) {
     return this.scoutService.findById(id);
   }
@@ -31,14 +32,15 @@ export class ScoutController {
   @Patch('update/:id')
   async updateUser(
     @Param('id') id: string,
-    @Body() updatescoutDto: UpdatescoutDto,
+    @Body() updateScoutDto: UpdateScoutDto,
   ): Promise<ScoutDto> {
-    const updatedUser = await this.scoutService.update(id, updatescoutDto);
-    console.log(updatescoutDto);
+    const updatedUser = await this.scoutService.update(id, updateScoutDto);
+    console.log(updateScoutDto);
     return updatedUser;
   }
 
   @Delete('delete/:id')
+  @UseInterceptors(new LoginInterceptor)
   deleteScout(@Param('id') id: string) {
     console.log('delete succesfully');
     return this.scoutService.delete(id);
