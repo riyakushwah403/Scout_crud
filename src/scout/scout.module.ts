@@ -1,16 +1,21 @@
-import { Module, NestModule, MiddlewareConsumer,RequestMethod } from '@nestjs/common';
+import {
+  Module,
+  NestModule,
+  MiddlewareConsumer,
+  RequestMethod,
+} from '@nestjs/common';
 import { ScoutController } from './scout.controller';
 import { ScoutService } from './scout.service';
 import { MongooseModule } from '@nestjs/mongoose';
-import { Scout, ScoutSchema } from './scout.schema';
-import { idValidationMiddleWare } from './scoutMiddleware/middleWare'; // Import the middleware here
+import { Scout, ScoutSchema } from './schema/scout.schema';
+import { idValidationMiddleWare } from './scoutMiddleware/middleWare';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([{ name: Scout.name, schema: ScoutSchema }])
+    MongooseModule.forFeature([{ name: Scout.name, schema: ScoutSchema }]),
   ],
   controllers: [ScoutController],
-  providers: [ScoutService]
+  providers: [ScoutService],
 })
 export class ScoutModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

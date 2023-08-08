@@ -1,6 +1,6 @@
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
-import { scoutRole } from './Dto/enum';
+import { scoutRole } from '../Enum/enum';
 
 export type ScoutDocument = Scout & Document;
 
@@ -15,7 +15,7 @@ export class Scout {
     @Prop({ required: true })
     email: string;
 
-    @Prop({ required: true })
+    @Prop({ required: false })
     location: string;
 
     @Prop({ required: true })
@@ -24,7 +24,7 @@ export class Scout {
     @Prop({required: true})
     dateOfBirth: Date;
 
-    @Prop({required:true})
+    @Prop({required:false})
     dateOfJoin:Date;
 
     @Prop({required:true})

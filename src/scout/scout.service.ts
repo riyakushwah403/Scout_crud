@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException, Post } from '@nestjs/common';
-import { Scout, ScoutDocument } from './scout.schema';
+import { Scout,ScoutDocument } from './schema/scout.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { ScoutDto } from './Dto/scout.dto';
 import { UpdateScoutDto } from './Dto/updateDto';
